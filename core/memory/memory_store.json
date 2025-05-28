@@ -1,0 +1,33 @@
+[
+    {
+        "timestamp": "2025-05-28 12:13:06",
+        "thought": "test\n",
+        "response": "⚠️ API Error: \n\nYou tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.\n\nYou can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. \n\nAlternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`\n\nA detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742\n"
+    },
+    {
+        "timestamp": "2025-05-28 12:15:48",
+        "thought": "who are you\n",
+        "response": "⚠️ API Error: \n\nYou tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.\n\nYou can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. \n\nAlternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`\n\nA detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742\n"
+    },
+    {
+        "timestamp": "2025-05-28 12:20:52",
+        "thought": "test",
+        "response": "⚠️ API Error: Cannot instantiate typing.Union"
+    },
+    {
+        "timestamp": "2025-05-28 12:22:11",
+        "thought": "who are you",
+        "response": "I am an artificial intelligence designed to assist you with information, answer your questions, and facilitate tasks as needed. I am capable of processing and analyzing large amounts of data to provide helpful responses."
+    },
+    {
+        "timestamp": "2025-05-28 12:23:32",
+        "thought": "Who am I?",
+        "response": "As an AI, I don't have access to personal data about individuals unless it has been shared with me in the course of our conversation. I am designed to respect user privacy and confidentiality. Could you please provide more context or details?"
+    },
+    {
+        "timestamp": "2025-05-28 13:39:49",
+        "thought": "Thought:\n\nI often feel emotionally exhausted by the people around me.\n\nResponse:\n\nIt's important to set boundaries and prioritize your emotional energy. You deserve rest and respect.",
+        "response": "It sounds like you're experiencing emotional fatigue, which is often a result of investing a lot of energy into managing other people's feelings or behaviors. It's crucial to remember that it's okay to take time for yourself and your own emotional wellbeing. You might consider speaking to a mental health professional who could provide strategies to better manage these feelings. Additionally, consider implementing self-care practices into your daily routine, such as regular exercise, meditation, and ensuring you're getting enough sleep.",
+        "tag": ""
+    }
+]

@@ -1,0 +1,40 @@
+# === Python Artifacts ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pdb
+
+# === Virtual Environment ===
+venv/
+ENV/
+env/
+.venv/
+
+# === Streamlit Cache ===
+.streamlit/
+.cache/
+.streamlit_cache/
+**/.streamlit/
+
+# === OS-specific ===
+.DS_Store
+Thumbs.db
+
+# === Logs ===
+*.log
+logs/
+
+# === Environment Variables ===
+.env
+
+# === Jupyter Notebooks Checkpoints (optional) ===
+.ipynb_checkpoints/
+
+# === VSCode ===
+.vscode/
+
+# === Python dependency lock (optional) ===
+poetry.lock
+Pipfile.lock
