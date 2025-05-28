@@ -1,14 +1,15 @@
 # gpt/gpt_handler.py
 
 import os
-from dotenv import load_dotenv
 from openai import OpenAI
 
-# Load environment variables
-load_dotenv()
+# Get API key from environment
+api_key = os.environ.get("OPENAI_API_KEY")
+if not api_key:
+    raise ValueError("❌ OPENAI_API_KEY not found. Set it in your .env or Streamlit Cloud Secrets.")
 
-# Instantiate client
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Instantiate OpenAI client
+client = OpenAI(api_key=api_key)
 
 def handle_prompt(prompt: str) -> str:
     """Send user prompt to OpenAI and return response."""
