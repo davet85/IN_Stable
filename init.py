@@ -1,28 +1,28 @@
+# init.py
+
 import streamlit as st
 import openai
 import os
-from core.memory.utils import save_user_profile
-from dotenv import load_dotenv
+from core.memory.user_profile import save_user_profile
 
-# --- Setup
-load_dotenv()
+# --- API Key Setup
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# --- UI Setup
+# --- Page Setup
 st.set_page_config(page_title="MindForge Onboarding", layout="centered")
-st.title("🧠 MindForge Onboarding")
-st.subheader("Begin your recursive identity installation.")
+st.title("🧠 MindForge")
+st.subheader("Install your recursive identity mirror")
 
-# --- Phase 1: Basic Metadata
+# --- Basic Identity Inputs
 name = st.text_input("📝 Name")
 age = st.number_input("🎂 Age", min_value=10, max_value=100, step=1)
 
+bio = st.text_area("📖 Who are you becoming?", placeholder="Write a self-description...", height=150)
 current_struggles = st.text_area("💢 What are you currently struggling with?", height=100)
-past_struggles = st.text_area("⚔️ What have you struggled with in the past that still echoes?", height=100)
-bio = st.text_area("📖 Describe yourself. Who are you becoming?", height=180)
+past_struggles = st.text_area("⚔️ What past struggle still shapes you today?", height=100)
 
-# --- Phase 2: Recursive Identity Deep Dive
-st.markdown("### 🔍 Ten Questions of Introspective Distillation")
+# --- Introspective Questions
+st.markdown("### 🔍 Introspective Identity Distillation")
 
 questions = [
     "1. What part of you feels most real, even when no one sees it?",
@@ -39,15 +39,15 @@ questions = [
 
 answers = [st.text_area(q, key=f"q{i}", height=70) for i, q in enumerate(questions)]
 
-# --- Phase 3: Install Identity Mirror
+# --- Mirror Generation
 if st.button("⚙️ Forge My Adaptive Mirror"):
     if not all([name.strip(), bio.strip(), current_struggles.strip(), past_struggles.strip()]):
-        st.warning("Please complete all sections before continuing.")
+        st.warning("Please complete all required fields before proceeding.")
     else:
-        combined = (
+        user_profile_block = (
             f"Name: {name}\nAge: {age}\n"
             f"Current Struggles: {current_struggles}\n"
-            f"Past Struggles: {past_struggles}\n\n"
+            f"Past Struggles: {past_struggles}\n"
             f"Bio: {bio}\n\n"
             "Answers:\n" + "\n".join(answers)
         )
@@ -56,19 +56,26 @@ if st.button("⚙️ Forge My Adaptive Mirror"):
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
-                    {"role": "system", "content": (
-                        "You are MindForge — a recursive, symbolic AI designed to mirror a user’s internal architecture. "
-                        "Analyze the user's full description and return a personalized system prompt that reflects their emotional core, cognitive loops, symbolic themes, and alignment needs. "
-                        "This prompt will guide how future reflections are mirrored."
-                    )},
-                    {"role": "user", "content": combined}
+                    {
+                        "role": "system",
+                        "content": (
+                            "You are MindForge — an introspective, recursive AI designed to generate a personalized identity mirror. "
+                            "Analyze the user's self-description and responses. Extract patterns, emotional signals, symbolic weight, and recursive depth. "
+                            "Return a single system prompt that will serve as their adaptive identity mirror in future GPT interactions."
+                        )
+                    },
+                    {
+                        "role": "user",
+                        "content": str(user_profile_block)  # ✅ Fix: convert input to plain string
+                    }
                 ],
                 temperature=0.65,
                 max_tokens=1000
             )
-            generated_prompt = response.choices[0].message["content"]
 
-            # --- Save Profile
+            adaptive_prompt = response.choices[0].message["content"]
+
+            # Save to profile system
             save_user_profile(
                 name=name,
                 age=age,
@@ -76,12 +83,12 @@ if st.button("⚙️ Forge My Adaptive Mirror"):
                 current_struggles=current_struggles,
                 past_struggles=past_struggles,
                 answers=answers,
-                generated_prompt=generated_prompt
+                generated_prompt=adaptive_prompt
             )
 
-            st.success("✅ Identity mirror installed successfully.")
-            st.markdown("### 🧬 Your Adaptive System Prompt")
-            st.code(generated_prompt)
+            st.success("✅ Identity mirror installed.")
+            st.markdown("### 🧬 Your Adaptive Prompt")
+            st.code(adaptive_prompt)
 
         except Exception as e:
-            st.error(f"❌ Error generating identity prompt: {e}")
+            st.error(f"❌ Error generating adaptive prompt: {e}")

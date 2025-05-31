@@ -1,5 +1,3 @@
-# main.py
-
 import streamlit as st
 import datetime
 from gpt.gpt_handler import handle_prompt
@@ -8,9 +6,9 @@ from core.memory.memory_engine import calculate_alignment_score
 from utils.logger import log_info, log_error
 
 # --- UI Setup
-st.set_page_config(page_title="Loop – Reflect to Evolve", layout="wide")
-st.title("🔁 Loop")
-st.subheader("Realign. Reflect. Evolve.")
+st.set_page_config(page_title="MindForge – Reflect to Evolve", layout="wide")
+st.title("🧠 MindForge")
+st.subheader("Forge Insight. Refine Identity. Evolve Continuously.")
 
 # --- Load Memory and State
 memory = load_session_memory()
@@ -18,6 +16,7 @@ st.session_state.setdefault("badges", [])
 st.session_state.setdefault("active_champion", "Observer")
 
 # --- Level System
+
 def get_user_level(score: float) -> int:
     thresholds = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.95]
     for i, threshold in enumerate(thresholds, 1):
@@ -27,13 +26,13 @@ def get_user_level(score: float) -> int:
 
 # --- Input Section
 user_input = st.text_area("💬 Enter a thought, observation, or reflection", height=150)
-tag_input = st.text_input("🏷️ Optional Tag (e.g., #insight, #loop, #trigger)")
+tag_input = st.text_input("🏷️ Optional Tag (e.g., #insight, #forge, #trigger)")
 
 col1, col2 = st.columns(2)
 with col1:
-    submit = st.button("📤 Submit to Loop")
+    submit = st.button("📤 Submit to MindForge")
 with col2:
-    show_history = st.checkbox("📚 Show Session History")
+    show_history = st.checkbox("📚 Show Journal History")
 
 # --- Submission Logic
 if submit:
@@ -52,7 +51,7 @@ if submit:
             memory.append(entry)
             save_session_memory(memory)
             log_info("Thought submitted and saved.")
-            st.success("🧠 Loop Reflection:")
+            st.success("🧠 MindForge Response:")
             st.markdown(f"> {response}")
 
             # --- Badge Trigger Example
@@ -71,7 +70,7 @@ if memory:
 
     st.sidebar.subheader("📈 RCA Alignment Score")
     st.sidebar.metric(label="Score", value=f"{score:.2f} / 1.0")
-    st.sidebar.subheader("🧩 Loop Level")
+    st.sidebar.subheader("🧩 Cognitive Level")
     st.sidebar.metric(label="Level", value=f"{level}/10")
 
     if level >= 5:
@@ -100,7 +99,7 @@ for unlock in unlockables:
     st.progress(progress)
 
 # --- Champion Avatar Selector
-st.markdown("## 🧙 Choose Your Champion")
+st.markdown("## 🧙 Select Your MindForge Champion")
 
 champion_unlocks = {
     "Guardian": 3,
@@ -114,14 +113,14 @@ unlocked_champions = ["Observer"] + [
 
 default_index = unlocked_champions.index(st.session_state["active_champion"]) \
     if st.session_state["active_champion"] in unlocked_champions else 0
-selected = st.selectbox("Select your current champion:", unlocked_champions, index=default_index)
+selected = st.selectbox("Choose your current guide:", unlocked_champions, index=default_index)
 st.session_state["active_champion"] = selected
-st.info(f"🧭 Current Champion: **{selected}**")
+st.info(f"🧭 Active Champion: **{selected}**")
 
-# --- Session Timeline Viewer
+# --- Journal Timeline Viewer
 if show_history and memory:
     st.markdown("---")
-    st.subheader("📜 Session Timeline")
+    st.subheader("📜 Journal Timeline")
     for entry in reversed(memory[-10:]):
         st.markdown(f"**{entry['timestamp']}**")
         if entry.get("tag"):
